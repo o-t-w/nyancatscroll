@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body > div {
+            min-height: 100vw;
+            height: 100vh;
+        }
+
+        .thingy {
+            height: 20px;
+            width: 0%;
+            min-height: revert;
+            position: fixed;
+            top: 4px;
+            margin-inline: auto;
+            background-color: blue;
+        }
+
+        @keyframes move {
+            0% {
+                offset-distance: 0%;
+            }
+            100% {
+                offset-distance: 100%;
+            }
+        }
+
+        .cat {
+            animation: move linear;
+            animation-duration: auto;
+            animation-timeline: scroll(root inline);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 300px;
+            display: block;
+            mix-blend-mode: screen;
+            offset-path: path("M0.5 63.5C163.333 27.8333 492.517 -5.51996 549 14C617 37.5001 935.5 123.5 1089.5 102.5C1135.81 96.1854 1416 1 1481 1");
+        }
+
+        body {
+            height: 100vh;
+            background-color: black;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            margin: 0;
+            display: grid;
+            width: 300vw;
+            background-image: url('bg.png');
+            background-repeat: repeat no-repeat;
+            background-position: center;
+        }
+
+        dialog::backdrop {
+            background-image: url('dalleart.png');
+            background-position: left bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        dialog {
+            background-color: transparent;
+        }
+
+        button {
+            border: none;
+            font-size: 18px;
+            color: white;
+            padding: 8px 20px;
+            background-color: #f763f6;
+            border-radius: 4px;
+        }
+    </style>
+
+</head>
+<body>
+    <dialog>
+        <button>Play NyanCat scroller!</button>
+    </dialog>
+    
+   <video loop class="cat" src="cat.mp4"></video>
+    
+    <script>
+        var audiointro = new Audio('space-the-final-frontier.mp3');
+
+        const dialog = document.querySelector('dialog');
+        dialog.showModal();
+        document.querySelector('button').addEventListener('click', function() {
+            dialog.close();
+            document.body.style.overflowX = 'scroll';
+            audiointro.play();
+        })
+        const video = document.documentElement.querySelector('video');
+        var audio = new Audio('original.mp3');
+        audio.volume = 0.2;
+
+        
+
+        document.addEventListener('scroll', function() {
+            video.play();
+            audio.play();
+        })
+
+        document.addEventListener('scrollend', function() {
+            video.pause();
+            audio.pause();
+        })
+
+        document.querySelector('.cat').addEventListener("animationend", function(event){
+            dialog.innerHTML = '<p>congrats, you scrolled to the end!</p>';
+            dialog.showModal();
+        });
+
+     </script>
+</body>
+</html>
