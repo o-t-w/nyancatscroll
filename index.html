@@ -103,8 +103,10 @@
         
 
         document.addEventListener('scroll', function() {
-            video.play();
-            audio.play();
+           if (video.paused) {
+               video.play();
+               audio.play();
+           } else {return};
         })
 
         document.addEventListener('scrollend', function() {
